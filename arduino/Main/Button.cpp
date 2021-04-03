@@ -1,7 +1,8 @@
 #include "Button.h"
 
-Button::Button(byte pin, Led *led1, Led *led2, Led *led3, Led *led4) {
+Button::Button(byte pin, Command *command, Led *led1, Led *led2, Led *led3, Led *led4) {
   this->pin = pin;
+  this->command = command;
   this->led1 = led1;
   this->led2 = led2;
   this->led3 = led3;
@@ -57,7 +58,7 @@ void Button::inferState() {
 }
 
 void Button::handleButtonPressed() {
-  Serial.println("Button has been pushed.");
+  command->send(SUBMIT_REQUEST_PAIR_CODE);
   
   led1->on();
   led2->off();
@@ -66,8 +67,6 @@ void Button::handleButtonPressed() {
 }
 
 void Button::handleButtonReleased() {
-  Serial.println("Button has been released.");
-  
   led1->off();
   led2->on();
   led3->off();
