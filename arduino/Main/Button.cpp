@@ -1,14 +1,19 @@
 #include "Button.h"
 
-Button::Button(byte pin) {
+Button::Button(byte pin, Led *led1, Led *led2, Led *led3, Led *led4) {
   this->pin = pin;
+  this->led1 = led1;
+  this->led2 = led2;
+  this->led3 = led3;
+  this->led4 = led4;
 
   init();
 }
 
 void Button::init() {
   pinMode(pin, INPUT);
-  
+
+  handleButtonReleased();
   inferCurrentState();
 }
 
@@ -16,7 +21,7 @@ bool Button::isNowWithinDelayOfLastStateChange() {
   unsigned long now = millis();
   unsigned long differenceBetweenNowAndLastStateVerificationTime = now - lastStateVerificationTime;
 
-  return differenceBetweenNowAndLastStateVerificationTime <= DELAY_FOR_STATE_VERIFICATION_IN_MILLIS;
+  return differenceBetweenNowAndLastStateVerificationTime <= DELAY_FOR_STATE_VERIFICATION_IN_MILLI_SEC;
 }
 
 void Button::updateLastStateVerificationTimeToNow() {
@@ -27,12 +32,10 @@ byte Button::readPinAndUpdateCurrentState() {
   byte readPinValue = digitalRead(pin);
   bool stateHasBeenChanged = currentState != readPinValue;
   if (stateHasBeenChanged) {
-    Serial.println("State has been changed");
-
     if (readPinValue == HIGH) {
-      Serial.println("Button has been pushed.");
+      handleButtonPressed();
     } else {
-      Serial.println("Button has been released.");
+      handleButtonReleased();
     }
   }
   
@@ -49,6 +52,24 @@ byte Button::inferCurrentState() {
   return readPinAndUpdateCurrentState();
 }
 
-bool Button::isPressed() {
-  return inferCurrentState() == HIGH;
+void Button::inferState() {
+  inferCurrentState();
+}
+
+void Button::handleButtonPressed() {
+  Serial.println("Button has been pushed.");
+  
+  led1->on();
+  led2->off();
+  led3->on();
+  led4->off();
+}
+
+void Button::handleButtonReleased() {
+  Serial.println("Button has been released.");
+  
+  led1->off();
+  led2->on();
+  led3->off();
+  led4->on();
 }

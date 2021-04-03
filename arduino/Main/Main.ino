@@ -13,24 +13,14 @@ Led led2(LED_2_PIN);
 Led led3(LED_3_PIN);
 Led led4(LED_4_PIN);
 
-Button button1(BUTTON_PIN);
+Button button1(BUTTON_PIN, &led1, &led2, &led3, &led4);
 
 void setup() {
   Serial.begin(9600);
 }
 
 void loop() {
-  if (button1.isPressed()) {
-    led1.on();
-    led2.off();
-    led3.on();
-    led4.off();
-  } else {
-    led1.off();
-    led2.on();
-    led3.off();
-    led4.on();
-  }
-
+  button1.inferState();
+  
   Serial.flush();
 }
