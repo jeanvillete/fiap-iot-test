@@ -15,6 +15,7 @@ class Led {
     Led(byte pin);
     void on();
     void off();
+    bool isOn();
 
 };
 

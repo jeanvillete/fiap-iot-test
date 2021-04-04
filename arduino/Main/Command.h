@@ -2,6 +2,7 @@
 #define MY_COMMAND_H
 
 #include <Arduino.h>
+#include "PairingCode.h"
 
 class Command {
 
@@ -11,15 +12,19 @@ class Command {
   const char COMMAND_COLON = ':';
 
   private:
+
+    PairingCode *pairingCode;
   
     int parseCommand(String *commandMessage);
     String parseParameters(String *commandMessage);
-    void handlePairingCode(String *parameters);
+    void handlePairingCode(String parameters);
 
   public:
 
+    Command(PairingCode *pairingCode);
     void send(String command);
     void readAndHandleCommands();
+    void reset();
   
 };
 

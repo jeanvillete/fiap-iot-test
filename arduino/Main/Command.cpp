@@ -1,4 +1,9 @@
 #include "Command.h"
+#include "PairingCode.h"
+
+Command::Command(PairingCode *pairingCode) {
+  this->pairingCode = pairingCode;
+}
 
 void Command::send(String command) {
   Serial.println(command);
@@ -13,9 +18,10 @@ void Command::readAndHandleCommands() {
 
     switch (command) {
       case 91: 
-        handlePairingCode(&parameters);
+        handlePairingCode(parameters);
         break;
       default:
+        reset();
         break;
     }
   }
@@ -42,6 +48,10 @@ String Command::parseParameters(String *commandMessage) {
   return commandMessage->substring(4);
 }
 
-void Command::handlePairingCode(String *parameters) {
-  Serial.println("Handle pairing code; " + *parameters);
+void Command::handlePairingCode(String parameters) {
+  pairingCode->printCode(parameters);
+}
+
+void Command::reset() {
+  pairingCode->reset();
 }

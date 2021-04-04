@@ -2,7 +2,6 @@
 #define MY_BUTTON_H
 
 #include <Arduino.h>
-#include "Led.h"
 #include "Command.h"
 
 class Button {
@@ -16,10 +15,6 @@ class Button {
     byte currentState;
     unsigned long lastStateVerificationTime;
     Command *command;
-    Led *led1;
-    Led *led2;
-    Led *led3;
-    Led *led4;
     
     void init();
     bool isNowWithinDelayOfLastStateChange();
@@ -29,7 +24,7 @@ class Button {
     
   public:
 
-    Button(byte pin, Command *command, Led *led1, Led *led2, Led *led3, Led *led4);
+    Button(byte pin, Command *command);
     void inferState();
     
     void handleButtonPressed();
