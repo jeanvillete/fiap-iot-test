@@ -110,7 +110,7 @@ byte PairingCode::getCurrentCharAtPosition() {
 
 bool PairingCode::isThereAnyLedOn() {
   return ledForDigit1->isOn() ||
-    ledForDigit2->isOn() ||
-    ledForDigit3->isOn() ||
-    ledForDigit4->isOn();
+          ledForDigit2->isOn() ||
+          ledForDigit3->isOn() ||
+          ledForDigit4->isOn();
 }
