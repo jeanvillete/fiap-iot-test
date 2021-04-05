@@ -1,8 +1,9 @@
 #include "Command.h"
 #include "PairingCode.h"
 
-Command::Command(PairingCode *pairingCode) {
+Command::Command(PairingCode *pairingCode, PairingStatus *pairingStatus) {
   this->pairingCode = pairingCode;
+  this->pairingStatus = pairingStatus;
 }
 
 void Command::send(String command) {
@@ -17,6 +18,12 @@ void Command::readAndHandleCommands() {
     String parameters = parseParameters(&commandMessage);
 
     switch (command) {
+      case 11: 
+        handlePairingSucceeded(parameters);
+        break;
+      case 12: 
+        handleEndingPairing(parameters);
+        break;
       case 91: 
         handlePairingCode(parameters);
         break;
@@ -49,9 +56,24 @@ String Command::parseParameters(String *commandMessage) {
 }
 
 void Command::handlePairingCode(String parameters) {
+  pairingStatus->reset();
+  
   pairingCode->printCode(parameters);
+}
+
+void Command::handlePairingSucceeded(String parameters) {
+  String currentActiveCode = pairingCode->getCode();
+  
+  pairingStatus->activate(currentActiveCode);
+
+  pairingCode->reset();
+}
+
+void Command::handleEndingPairing(String parameters) {
+  pairingStatus->reset();
 }
 
 void Command::reset() {
   pairingCode->reset();
+  pairingStatus->reset();
 }

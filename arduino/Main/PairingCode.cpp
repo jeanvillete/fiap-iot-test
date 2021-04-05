@@ -114,3 +114,7 @@ bool PairingCode::isThereAnyLedOn() {
           ledForDigit3->isOn() ||
           ledForDigit4->isOn();
 }
+
+String PairingCode::getCode() {
+  return this->code;
+}

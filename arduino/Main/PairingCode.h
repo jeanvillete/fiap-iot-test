@@ -38,6 +38,7 @@ class PairingCode {
     void reset();
     void printCode(String code);
     void inferState();
+    String getCode();
     
 };
 

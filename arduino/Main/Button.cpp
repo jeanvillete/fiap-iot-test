@@ -54,6 +54,8 @@ void Button::inferState() {
 }
 
 void Button::handleButtonPressed() {
+  command->reset();
+  
   command->send(SUBMIT_REQUEST_PAIR_CODE);
 }
 

@@ -3,6 +3,7 @@
 
 #include <Arduino.h>
 #include "PairingCode.h"
+#include "PairingStatus.h"
 
 class Command {
 
@@ -14,14 +15,17 @@ class Command {
   private:
 
     PairingCode *pairingCode;
+    PairingStatus *pairingStatus;
   
     int parseCommand(String *commandMessage);
     String parseParameters(String *commandMessage);
     void handlePairingCode(String parameters);
+    void handlePairingSucceeded(String parameters);
+    void handleEndingPairing(String parameters);
 
   public:
 
-    Command(PairingCode *pairingCode);
+    Command(PairingCode *pairingCode, PairingStatus *pairingStatus);
     void send(String command);
     void readAndHandleCommands();
     void reset();
