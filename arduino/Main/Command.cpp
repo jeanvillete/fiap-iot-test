@@ -1,5 +1,4 @@
 #include "Command.h"
-#include "PairingCode.h"
 
 Command::Command(PairingCode *pairingCode, PairingStatus *pairingStatus) {
   this->pairingCode = pairingCode;

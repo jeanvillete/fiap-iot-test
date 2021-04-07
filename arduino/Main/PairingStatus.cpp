@@ -19,3 +19,7 @@ void PairingStatus::reset() {
   
   ledStatus->off();
 }
+
+bool PairingStatus::isActive() {
+  return active;
+}

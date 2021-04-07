@@ -17,6 +17,7 @@ class PairingStatus {
     PairingStatus(Led *ledStatus);
     void activate(String code);
     void reset();
+    bool isActive();
   
 };
 
