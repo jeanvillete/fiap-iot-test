@@ -1,0 +1,77 @@
+service: fiapIotTestAwsWebsocket
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  environment:
+    WEB_SOCKET_MESSAGES_TABLE: WebSocketMessages
+    INDEX_PAIR_CODE_WITH_PARTY_TYPE: GSI_PAIR_CODE_WITH_PARTY_TYPE
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - "dynamodb:PutItem"
+        - "dynamodb:GetItem"
+        - "dynamodb:DeleteItem"
+        - "dynamodb:UpdateItem"
+        - "dynamodb:Query"
+      Resource:
+        - Fn::GetAtt: [WebSocketMessages, Arn]
+    - Effect: Allow
+      Action:
+        - "execute-api:ManageConnections"
+      Resource:
+        - "arn:aws:execute-api:*:*:**/@connections/*"
+
+functions:
+  connectHandler:
+    handler: ConnectHandler.handle
+    events:
+      - websocket:
+          route: $connect
+  registerPairCodeHandler:
+    handler: RegisterPairCodeHandler.handle
+    events:
+      - websocket:
+          route: registerPairCode
+  messageHandler:
+    handler: MessageHandler.handle
+    events:
+      - websocket:
+          route: sendMessage
+  defaulttHandler:
+    handler: DefaultHandler.handle
+    events:
+      - websocket:
+          route: $default
+  disconnectHandler:
+    handler: DisconnectHandler.handle
+    events:
+      - websocket:
+          route: $disconnect
+
+resources:
+  Resources:
+    WebSocketMessages:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: connectionId
+            AttributeType: S
+          - AttributeName: pairCode
+            AttributeType: S
+          - AttributeName: partyType
+            AttributeType: S
+        KeySchema:
+          - AttributeName: connectionId
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: GSI_PAIR_CODE_WITH_PARTY_TYPE
+            KeySchema:
+              - AttributeName: pairCode
+                KeyType: HASH
+              - AttributeName: partyType
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+        BillingMode: PAY_PER_REQUEST
+        TableName: WebSocketMessages
