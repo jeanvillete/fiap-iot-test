@@ -15,7 +15,8 @@ provider:
         - "dynamodb:UpdateItem"
         - "dynamodb:Query"
       Resource:
-        - Fn::GetAtt: [WebSocketMessages, Arn]
+        - "arn:aws:dynamodb:*:*:table/*"
+        - "arn:aws:dynamodb:*:*:table/*/index/*"
     - Effect: Allow
       Action:
         - "execute-api:ManageConnections"

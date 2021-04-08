@@ -12,10 +12,7 @@ const SUCCESSFULL_RESPONSE = {
 };
 
 module.exports.handle = (event, context, callback) => {
-    const body = JSON.parse(event.body);
-    const {pairCode, targetPartyType, message} = body.data;
-    
-    sendMessageToPartiesPaired(pairCode, targetPartyType, message)
+    sendMessageToPartiesPaired(event)
         .then(() => {
             callback(null, SUCCESSFULL_RESPONSE);
         })
@@ -24,15 +21,18 @@ module.exports.handle = (event, context, callback) => {
         });
 }
 
-const sendMessageToPartiesPaired = (pairCode, targetPartyType, message) => {
+const sendMessageToPartiesPaired = (event) => {
+    const {data} = JSON.parse(event.body);
+    const {pairCode, targetPartyType} = data;
+
     return getTargetPartiesConnectionId(pairCode, targetPartyType)
-        .then(data => {
-            return data.Items
-                .map(dataItem => 
-                    dataItem.connectionId
+        .then(dynamoDbData => {
+            return dynamoDbData.Items
+                .map(dynamoDbDataItem => 
+                    dynamoDbDataItem.connectionId
                 )
                 .map(targetPartyConnectionId =>
-                    sendMessageToPartyPaired(targetPartyConnectionId, message)
+                    sendMessageToPartyPaired(targetPartyConnectionId, data, event)
                 );
         });
 }
@@ -54,7 +54,7 @@ const getTargetPartiesConnectionId = (pairCode, targetPartyType) => {
         .promise();
 }
 
-const sendMessageToPartyPaired = (targetPartyConnectionId, message) => {
+const sendMessageToPartyPaired = (targetPartyConnectionId, {message}, event) => {
     const messageAsString = JSON.stringify(message);
 
     const connectionEndpoint = event.requestContext.domainName + '/' + event.requestContext.stage;
