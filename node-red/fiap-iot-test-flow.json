@@ -1,0 +1,313 @@
+[
+    {
+        "id": "6b5e0444.31ca5c",
+        "type": "tab",
+        "label": "fiap-iot-test",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "f6106b47.ec5c7",
+        "type": "serial in",
+        "z": "6b5e0444.31ca5c",
+        "name": "Read Arduino Command",
+        "serial": "59378ebe.f1b448",
+        "x": 130,
+        "y": 600,
+        "wires": [
+            [
+                "e9ee5181.997d18"
+            ]
+        ]
+    },
+    {
+        "id": "8ce072ae.1a321",
+        "type": "serial out",
+        "z": "6b5e0444.31ca5c",
+        "name": "Write Pairing Code to Arduino",
+        "serial": "59378ebe.f1b448",
+        "x": 2150,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "87d41bc5.6e5e18",
+        "type": "websocket in",
+        "z": "6b5e0444.31ca5c",
+        "name": "Listen for Commands Sent by the WebBrowser",
+        "server": "",
+        "client": "fb3fc569.eabae8",
+        "x": 200,
+        "y": 340,
+        "wires": [
+            [
+                "2744b64d.3beeea"
+            ]
+        ]
+    },
+    {
+        "id": "b39113c1.a93c48",
+        "type": "switch",
+        "z": "6b5e0444.31ca5c",
+        "name": "Match WebBrowser Command",
+        "property": "webSocketMessage",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "heartBeat",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1070,
+        "y": 340,
+        "wires": [
+            [
+                "5a726b08.ea5894"
+            ]
+        ]
+    },
+    {
+        "id": "2744b64d.3beeea",
+        "type": "function",
+        "z": "6b5e0444.31ca5c",
+        "name": "Format WebSocket Message to Javascript Object",
+        "func": "const webSocketMessageAsString = msg.payload;\n\nmsg[\"webSocketMessage\"] = JSON.parse(webSocketMessageAsString);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 670,
+        "y": 340,
+        "wires": [
+            [
+                "b39113c1.a93c48"
+            ]
+        ]
+    },
+    {
+        "id": "5a726b08.ea5894",
+        "type": "function",
+        "z": "6b5e0444.31ca5c",
+        "name": "Format Arduino Command; Remote Paired Successfully",
+        "func": "const ARDUINO_COMMAND = \":11:\"\n\nmsg[\"payload\"] = ARDUINO_COMMAND;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1510,
+        "y": 340,
+        "wires": [
+            [
+                "8ce072ae.1a321"
+            ]
+        ]
+    },
+    {
+        "id": "e9ee5181.997d18",
+        "type": "function",
+        "z": "6b5e0444.31ca5c",
+        "name": "Format Arduino Command",
+        "func": "const COMMAND_AS_STRING_VERY_FIRST_POSITION = 0;\nconst COMMAND_BEGINS_WITH = \":\";\nconst MESSAGE_BEGINS_WITH = \"{\";\nconst arduinoCommandAsString = msg.payload.trim();\n\nif (arduinoCommandAsString.charAt(COMMAND_AS_STRING_VERY_FIRST_POSITION) === COMMAND_BEGINS_WITH) {\n    msg[\"payload\"] = arduinoCommandAsString;\n} else if (arduinoCommandAsString.charAt(COMMAND_AS_STRING_VERY_FIRST_POSITION) === MESSAGE_BEGINS_WITH) {\n    msg[\"payload\"] = JSON.parse(arduinoCommandAsString);\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 420,
+        "y": 600,
+        "wires": [
+            [
+                "2e9d9f4e.98f1c8"
+            ]
+        ]
+    },
+    {
+        "id": "2e9d9f4e.98f1c8",
+        "type": "switch",
+        "z": "6b5e0444.31ca5c",
+        "name": "Match Arduino Command",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": ":19:",
+                "vt": "str"
+            },
+            {
+                "t": "hask",
+                "v": "device",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 696,
+        "y": 600,
+        "wires": [
+            [
+                "5fc6b174.8bf0e8"
+            ],
+            [
+                "18f2889d.37ef2f"
+            ]
+        ]
+    },
+    {
+        "id": "5fc6b174.8bf0e8",
+        "type": "function",
+        "z": "6b5e0444.31ca5c",
+        "name": "Process Command; Request Pairing Code",
+        "func": "const MAX_DIGIT_VALUE = 4;\n\nfunction getRandomInt() {\n  return Math.floor((Math.random() * MAX_DIGIT_VALUE) + 1);\n}\n\nlet pairCode = \"\";\n\nfor (let index = 1; index <= 4; index++) {\n    pairCode += getRandomInt();\n}\n\nmsg[\"pairCode\"] = pairCode;\nglobal.set(\"pairCode\", pairCode);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1016,
+        "y": 500,
+        "wires": [
+            [
+                "28daafb2.e5eb3",
+                "d4ab3889.c73ee8"
+            ]
+        ]
+    },
+    {
+        "id": "28daafb2.e5eb3",
+        "type": "function",
+        "z": "6b5e0444.31ca5c",
+        "name": "Format Arduino Command; Pairing Code",
+        "func": "const ARDUINO_COMMAND = \":91:\"\n\nmsg[\"payload\"] = ARDUINO_COMMAND + msg.pairCode;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1480,
+        "y": 500,
+        "wires": [
+            [
+                "8ce072ae.1a321"
+            ]
+        ]
+    },
+    {
+        "id": "cbb0b417.1102f",
+        "type": "websocket out",
+        "z": "6b5e0444.31ca5c",
+        "name": "Send Message to AWS WebSocket",
+        "server": "",
+        "client": "fb3fc569.eabae8",
+        "x": 1920,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "d4ab3889.c73ee8",
+        "type": "function",
+        "z": "6b5e0444.31ca5c",
+        "name": "Format Message to WebSocket; Register Pair Code",
+        "func": "const {pairCode} = msg;\n\nconst webSocketMessage = { \n    action: \"registerPairCode\",\n    data: {\n        pairCode: pairCode,\n        partyType: \"device\"\n    }\n}\n\nmsg[\"payload\"] = JSON.stringify(webSocketMessage);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1490,
+        "y": 600,
+        "wires": [
+            [
+                "cbb0b417.1102f"
+            ]
+        ]
+    },
+    {
+        "id": "18f2889d.37ef2f",
+        "type": "function",
+        "z": "6b5e0444.31ca5c",
+        "name": "Format Message to WebSocket; Send Device Message",
+        "func": "const {device} = msg.payload;\nconst pairCode = global.get(\"pairCode\");\n\nconst webSocketMessage = { \n    action: \"sendMessage\",\n    data: {\n        pairCode: pairCode,\n        targetPartyType: \"web\",\n        message: device\n    }\n}\n\nmsg[\"payload\"] = JSON.stringify(webSocketMessage);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1070,
+        "y": 720,
+        "wires": [
+            [
+                "cbb0b417.1102f"
+            ]
+        ]
+    },
+    {
+        "id": "d4218257.7c243",
+        "type": "http response",
+        "z": "6b5e0444.31ca5c",
+        "name": "",
+        "x": 490,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "da847936.a4adb8",
+        "type": "http in",
+        "z": "6b5e0444.31ca5c",
+        "name": "",
+        "url": "/simple",
+        "method": "get",
+        "swaggerDoc": "",
+        "x": 92,
+        "y": 220,
+        "wires": [
+            [
+                "12f4f923.4d3a3f"
+            ]
+        ]
+    },
+    {
+        "id": "12f4f923.4d3a3f",
+        "type": "template",
+        "z": "6b5e0444.31ca5c",
+        "name": "Simple Web Page",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE HTML>\n<html>\n    <head>\n    <title>FIAP - IoT Sample WebSocket SPA Communication</title>\n    <script type=\"text/javascript\">\n        var ws;\n        var wsUri = 'wss://uj09gm4nf8.execute-api.us-east-1.amazonaws.com/dev';\n        \n        function wsConnect() {\n            ws = new WebSocket(wsUri);\n            ws.onmessage = function(msg) {\n                var line = \"\";\n                \n                var data = msg.data;\n                \n                line += \"<p>\"+data+\"</p>\";\n                \n                document.getElementById('messages').innerHTML = line;\n            }\n            ws.onopen = function() {\n                console.log(\"connected\");\n                \n                document.getElementById('status').innerHTML = \"connected\";\n            }\n            ws.onclose = function() {\n                console.log(\"disconnected\");\n                \n                document.getElementById('status').innerHTML = \"not connected\";\n                setTimeout(wsConnect,3000);\n            }\n        }\n        \n        function submitWebSocketMessage() {\n            const webSocketMessageAsString = document.getElementById(\"webSocketMessage\").value;\n            \n            if (ws) {\n                console.log(\"Sending message; \", webSocketMessageAsString);\n                ws.send(webSocketMessageAsString);\n            } else {\n                console.log(\"WebSocket communication is not established\");\n            }\n        }\n    </script>\n    <style>\n        body {\n            margin: 30px;\n        }\n    </style>\n    </head>\n    <body onload=\"wsConnect();\" onunload=\"ws.disconnect();\">\n        <font face=\"Arial\">\n            <h1>FIAP - IoT Sample WebSocket SPA Communication</h1>\n            \n            <div id=\"status\">unknown</div>\n            \n            <textarea id=\"webSocketMessage\" rows=\"3\" cols=\"150\"></textarea>\n            <br/>\n            <button type=\"button\" onclick='submitWebSocketMessage();'>Submit WebSocket Message</button>\n            \n            <hr/>\n            \n            <div id=\"messages\"></div>\n        </font>\n    </body>\n</html>\n",
+        "x": 310,
+        "y": 220,
+        "wires": [
+            [
+                "d4218257.7c243"
+            ]
+        ]
+    },
+    {
+        "id": "59378ebe.f1b448",
+        "type": "serial-port",
+        "serialport": "/dev/ttyACM0",
+        "serialbaud": "9600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "fb3fc569.eabae8",
+        "type": "websocket-client",
+        "path": "wss://uj09gm4nf8.execute-api.us-east-1.amazonaws.com/dev",
+        "tls": "",
+        "wholemsg": "false"
+    }
+]
