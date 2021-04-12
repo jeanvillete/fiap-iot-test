@@ -1,6 +1,6 @@
 # required tools
-  $ npm install aws-cli -g
-  $ npm install serverless -g
+    $ npm install aws-cli -g
+    $ npm install serverless -g
 
 # for deployment
 $ serverless deploy
