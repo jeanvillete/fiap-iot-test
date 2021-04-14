@@ -32,7 +32,7 @@ apenas para os usuários remotos de fato interessado.
 Esta segunda parte é um **plus** no trabalho, pois mostra além da comunicação mínima do componente/sensor
 com a internet, mas também uma **inteligência no pareamento** entre o físico e o serviço remoto na internet.
 
-# 2 - visão geral; interface
+# 2 - interface <TL;DR>
 
 Imagem panorâmica do circuito;
 
