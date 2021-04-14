@@ -60,8 +60,8 @@ será pareado com um cliente remoto acessando a página web (para comunicação 
 O código de pareamento é formado por 4 dígitos que vão de 1 a 4, e.g; 1234, 2244, 4121, etc.
 
     Este requisito do código de pareamento, é basicamente porque eu não tenho um  display
-    para apresentar o código, e como eu tenho apenas leds, eu utilizei 4 leds (**dígitos de
-    1 a 4**) que ascendem e desligam em uma ordem que apresentam os 4 dígitos (cada dígito
+    para apresentar o código, e como eu tenho apenas leds, eu utilizei 4 leds (dígitos de
+    1 a 4) que acendem e desligam em uma ordem que apresentam os 4 dígitos (cada dígito
     por vez).
 
 Quando um código de pareamento é recepcionado pela placa, este código é apresentado através dos
