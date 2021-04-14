@@ -72,17 +72,52 @@ leds responsáveis;
 
 --
 
-Uma vez que o usuário consiga obter este código de pareamento, o usuário deve acessar página web com capacidade de comunicar/parear/recepcionar mensagens, se conectar ao websocket e por ultimo submeter o código de pareamento;
+Uma vez que o usuário consiga obter este código de pareamento, o usuário deve acessar página web
+com capacidade de comunicar/parear/recepcionar mensagens, se conectar ao websocket e por ultimo
+submeter o código de pareamento;
 
 ![](imgs/E_fiap-iot-test-web_page.jpg)
 
 --
 
-Assim que for submetido o código de pareamento, é disparado uma mensagem para o disposivo
-(placa Arduino) informando do evento de pareamento, e a partir deste momento, o led do status
-de pareamento é ligado, e o sensor ultrasonico de distância começa a observar o ambiente e disparar
-a distância do corpo mais próximo a cada **500 milissegundos**;
+Assim que for submetido o código de pareamento pelo usuário via web browser, é disparado uma
+mensagem para o disposivo (placa Arduino) informando do evento de pareamento, então a partir deste
+momento o led do status de pareamento é ligado, e o sensor ultrasonico de distância começa a
+observar o ambiente e disparar a distância do corpo mais próximo a cada **500 milissegundos**;
 
 ![](imgs/D_fiap-iot-test-led-pairing_status.JPG)
 
 --
+
+# 3 - deployment
+
+Abaixo segue os componentes e a stack da solução proposta no trabalho.
+
+- AWS; [clique aqui para os passos do deployment dos componentes da AWS](https://github.com/jeanvillete/fiap-iot-test/tree/master/aws.websocket)
+    - **DynamoDB**; com estrutura de dados que permite o pareamento entre o dispositivo
+    (Arduino + node-red) e o cliente via web browser. O DynamoDB é essencial
+    para comunicação WebSocket.
+    - **API Gateway**; com as rotas do WebSocket
+    - **Serviços Lambda**; respondendo a cada tipo/rota de mensagem estabelecido no
+    API Gateway
+    - **IAM Roles**; com as permissões a cada serviço exposto e invocado.
+
+- Arduino; [clique aqui para os passos da montagem e deploy do código na placa Arduino](https://github.com/jeanvillete/fiap-iot-test/tree/master/arduino/Main)
+    - Desenho esquemático do circuito disponível
+    - Bread board
+    - Circuito
+    - Leds
+    - Sensor de aproximação
+
+- Node-red; [clique aqui para os passos do deployment do fluxo Node-Red](https://github.com/jeanvillete/fiap-iot-test/tree/master/node-red)
+    - Fluxo
+    - (Ponte) Implementação alto nível para comunicação com placa Arduino (porta serial),
+    abertura da comunicação WebSocket, recepção e postagem das mensagens.
+
+- Página web remota;
+    - SPA (single page application) hospedado remotamente para interação com o device remoto
+    via WebSocket.
+    - Afim de não apenas deixar o código disponível, eu resolvi deixá-lo também hospedado
+    e acessível através do github pages;
+        - [repositório com o código, clique aqui](https://github.com/jeanvillete/jeanvillete.github.io/tree/main/fiap-iot-test)
+        - [página hospedada, clique aqui](https://jeanvillete.github.io/fiap-iot-test/)
