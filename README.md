@@ -101,12 +101,12 @@ Abaixo segue os componentes e a stack da solução proposta no trabalho.
     - **Serviços Lambda**; respondendo a cada tipo/rota de mensagem estabelecido no
     API Gateway
     - **IAM Roles**; com as permissões a cada serviço exposto e invocado.
-    ```
-    Este deploy da AWS é facultativo, pois eu já tenho exposto o endpoint;
-        wss://uj09gm4nf8.execute-api.us-east-1.amazonaws.com/dev
-        que pode ser utilizado caso o seu objetivo não seja testar os componentes
-        da AWS.
-    ```
+        ```
+        Este deploy da AWS é facultativo, pois eu já tenho exposto o endpoint;
+            wss://uj09gm4nf8.execute-api.us-east-1.amazonaws.com/dev
+            que pode ser utilizado caso o seu objetivo não seja testar os componentes
+            da AWS.
+        ```
 
 - Arduino; [clique aqui para os passos da montagem e deploy do código na placa Arduino](https://github.com/jeanvillete/fiap-iot-test/tree/master/arduino/Main)
     - Desenho esquemático do circuito disponível
