@@ -1,6 +1,7 @@
 ###### Escola: FIAP
 ###### Curso: MBA FULLSTACK DEVELOPER, MICROSERVICES, CLOUD & IoT
 ###### Disciplina: IoT Development
+###### Professor: RICARDO DA SILVA OGLIARI
 ###### Aluno / RM: JEAN BRUNO SOUTO VILLETE / 335435
 
 
