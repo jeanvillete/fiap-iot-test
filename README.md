@@ -7,9 +7,14 @@
 ```
 Objetivo principal: O trabalho consiste na entrega de uma solução IoT completa.
 
-Detalhe da entrega: entregar a descrição do projeto textual ou em vídeo (pode subir o vídeo no YouTube, deixar como não listado e enviar o link). Além da descrição, imagens ilustrativas e snippets de código que demonstrem a integração dos componentes são requeridas. 
+Detalhe da entrega: entregar a descrição do projeto textual ou em vídeo (pode subir o vídeo
+    no YouTube, deixar como não listado e enviar o link). Além da descrição, imagens 
+    ilustrativas e snippets de código que demonstrem a integração dos componentes 
+    são requeridas. 
 
-Por ex: uma solução que integra um sensor de temperatura a uma nuvem do Google com Firebase. Nesta caso, imagens do circuito montada da placa, sensores e atuadores, trechos de código que mostrem como foi feita a integração da placa com Fog e/ou Cloud computing. 
+Por ex: uma solução que integra um sensor de temperatura a uma nuvem do Google com Firebase.
+    Nesta caso, imagens do circuito montada da placa, sensores e atuadores, trechos de
+    código que mostrem como foi feita a integração da placa com Fog e/ou Cloud computing. 
 ```
 
 # 1 - solução proposta
@@ -46,14 +51,17 @@ Na **bread board**, na extrema esquerda, há um push button;
 
 Ao ser ser pressionado, é feito uma requisição solicitando um código de pareamento.
 
-    Toda comunicação com a placa Arduino e o mundo externo/remoto, é feita utilizando a porta serial (SERIAL_BAUDS 9600).
+    Toda comunicação com a placa Arduino e o mundo externo/remoto, é feita utilizando
+    a porta serial (SERIAL_BAUDS 9600).
 
 Este código de pareamento é registrado remotamente no banco DynamoDB na AWS, que posteriormente
 será pareado com um cliente remoto acessando a página web (websocket).
 
 O código de pareamento é formado por 4 dígitos que vão de 1 a 4, e.g; 1234, 2244, 4121, etc.
 
-    Este requisito do código de pareamento, é basicamente porque eu não tenho um  display para apresentar o código, e como eu tenho apenas leds, foi com isto mesmo que eu resolvi o problema.
+    Este requisito do código de pareamento, é basicamente porque eu não tenho um  display
+    para apresentar o código, e como eu tenho apenas leds, foi com isto mesmo que eu
+    resolvi o problema.
 
 Quando um código de pareamento é recepcionado pela placa, este código é apresentado através dos
 leds responsáveis;
