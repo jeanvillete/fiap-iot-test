@@ -30,13 +30,19 @@ com a internet, mas também uma **inteligência no pareamento** entre o físico 
 # 2 - visão geral; interface
 
 Imagem panorâmica do circuito;
+
 ![](imgs/A_fiap-iot-test-board-overview.JPG)
+
+--
 
 Quando a placa é energizada, todos os componentes e sensores ficam desligados, i.e; leds e 
 sensor ultrasonico de distância.
 
 Na **bread board**, na extrema esquerda, há um push button;
+
 ![](imgs/B_fiap-iot-test-push_button-pairing.jpg)
+
+--
 
 Ao ser ser pressionado, é feito uma requisição solicitando um código de pareamento.
 
@@ -54,9 +60,13 @@ leds responsáveis;
 
 ![](imgs/C_fiap-iot-test-leds-pairing_code_digits.jpg)
 
+--
+
 Uma vez que o usuário consiga obter este código de pareamento, o usuário deve acessar página web com capacidade de comunicar/parear/recepcionar mensagens, se conectar ao websocket e por ultimo submeter o código de pareamento;
 
 ![](imgs/E_fiap-iot-test-web_page.jpg)
+
+--
 
 Assim que for submetido o código de pareamento, é disparado uma mensagem para o disposivo
 (placa Arduino) informando do evento de pareamento, e a partir deste momento, o led do status
@@ -64,3 +74,5 @@ de pareamento é ligado, e o sensor ultrasonico de distância começa a observar
 a distância do corpo mais próximo a cada **500 milissegundos**;
 
 ![](imgs/D_fiap-iot-test-led-pairing_status.JPG)
+
+--
