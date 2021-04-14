@@ -94,6 +94,12 @@ observar o ambiente e disparar a distância do corpo mais próximo a cada **500 
 Abaixo segue os componentes e a stack da solução proposta no trabalho.
 
 - AWS; [clique aqui para os passos do deployment dos componentes da AWS](https://github.com/jeanvillete/fiap-iot-test/tree/master/aws.websocket)
+    ```
+    Este deploy é facultativo, pois eu já tenho exposto o endpoint;
+        wss://uj09gm4nf8.execute-api.us-east-1.amazonaws.com/dev
+        que pode ser utilizado caso o seu objetivo não seja testar os componentes
+        da AWS.
+    ```
     - **DynamoDB**; com estrutura de dados que permite o pareamento entre o dispositivo
     (Arduino + node-red) e o cliente via web browser. O DynamoDB é essencial
     para comunicação WebSocket.
@@ -119,5 +125,5 @@ Abaixo segue os componentes e a stack da solução proposta no trabalho.
     via WebSocket.
     - Afim de não apenas deixar o código disponível, eu resolvi deixá-lo também hospedado
     e acessível através do github pages;
-        - [repositório com o código, clique aqui](https://github.com/jeanvillete/jeanvillete.github.io/tree/main/fiap-iot-test)
         - [página hospedada, clique aqui](https://jeanvillete.github.io/fiap-iot-test/)
+        - [repositório com o código, clique aqui](https://github.com/jeanvillete/jeanvillete.github.io/tree/main/fiap-iot-test)
