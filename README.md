@@ -116,7 +116,6 @@ Abaixo segue os componentes e a stack da solução proposta no trabalho.
     - Sensor de aproximação
 
 - Node-red; [clique aqui para os passos do deployment do fluxo Node-Red](https://github.com/jeanvillete/fiap-iot-test/tree/master/node-red)
-    - Fluxo
     - (Ponte) Implementação alto nível para comunicação com placa Arduino (porta serial),
     abertura da comunicação WebSocket, recepção e postagem das mensagens.
 
