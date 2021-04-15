@@ -108,7 +108,7 @@ Abaixo segue os componentes e a stack da solução proposta no trabalho.
             da AWS.
         ```
 
-- Arduino; [clique aqui para os passos da montagem e deploy do código na placa Arduino](https://github.com/jeanvillete/fiap-iot-test/tree/master/arduino/Main)
+- Arduino; [clique aqui para os passos da montagem e deploy do código na placa Arduino](https://github.com/jeanvillete/fiap-iot-test/tree/master/arduino)
     - Desenho esquemático do circuito disponível
     - Bread board
     - Circuito
