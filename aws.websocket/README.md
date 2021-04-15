@@ -1,4 +1,4 @@
-## 3.1 - AWS
+## 1 - AWS
 
 Os recursos sob o diretório corrente são para deploy dos componentes da AWS.
 
@@ -19,7 +19,7 @@ Este deploy da AWS é facultativo, pois eu já tenho exposto o endpoint;
     da AWS.
 ```
 
-## 3.2 - ferramenta de deploy
+## 2 - ferramenta de deploy
 
 A ferramenta que eu utilizei para deploy na AWS é o [serverless](https://www.npmjs.com/package/serverless) disponível através do gestor de pacotes **npm**.
 
@@ -29,7 +29,7 @@ A ferramenta que eu utilizei para deploy na AWS é o [serverless](https://www.np
 então no mínimo o arquivo da sessão do usuário/cliente **~/.aws/credentials** deve estar
 disponível e com conteúdo atualizado.
 
-## 3.3 - aplicando o deploy
+## 3 - aplicando o deploy
 
 ```
 # deve estar no mesmo diretório do artefato serverless.yml
