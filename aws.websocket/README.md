@@ -29,7 +29,7 @@ A ferramenta que eu utilizei para deploy na AWS é o [serverless](https://www.np
 então no mínimo o arquivo da sessão do usuário/cliente **~/.aws/credentials** deve estar
 disponível e com conteúdo atualizado.
 
-# 3.3 - aplicando o deploy
+## 3.3 - aplicando o deploy
 
 ```
 # deve estar no mesmo diretório do artefato serverless.yml
