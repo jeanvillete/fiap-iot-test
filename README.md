@@ -23,19 +23,23 @@ Por ex: uma solução que integra um sensor de temperatura a uma nuvem do Google
 O trabalho proposto é a interação entre um componente físico (sensor) plugado no arduino, e um serviço remoto,
 gerido em uma plataforma como AWS, Azure ou Google Cloud Platform.
 
-Por fim, dado os componentes que eu tinha em mãos e o meu conhecimento em cloud, o resultado foi basicamente
+Dado os componentes que eu tinha em mãos e o meu conhecimento em cloud, o resultado foi basicamente
 utilizar um sensor ultrasonico de presença (HC-SR04), e comunicar com um serviço WebSocket hospedado na 
-AWS, em que me mostrasse a distância calculada pelo sensor em tempo real, através de uma página web.
+AWS, em que pudesse mostrar a distância calculada pelo sensor em tempo real, através de uma página web.
 
-Mas além de mostrar que meu sensor se comunicava devidamente, eu decidi implementar o registro do meu device
-(conjunto de componentes físicos) associando a um usuário, a mensagem gerada pelo sensor fosse disparada
-apenas para os usuários remotos de fato interessado.
+Mas além de mostrar que meu sensor se comunicava devidamente com o cliente remoto via WebSocket,
+eu decidi implementar o registro do meu device (circuito e o conjunto dos componentes físicos) associando
+a um usuário, e a mensagem gerada pelo sensor pudesse ser disparada apenas para o usuário remoto de fato
+interessado.
+
 Esta segunda parte é um **plus** no trabalho, pois mostra além da comunicação mínima do componente/sensor
-com a internet, mas também uma **inteligência no pareamento** entre o físico e o serviço remoto na internet.
+com a internet, mostra também uma **inteligência no pareamento** entre o físico e o serviço remoto na internet.
 
 # 2 - interface <TL;DR>
 
 Imagem panorâmica do circuito;
+
+##### Nota: maiores detalhes do circuito está na seção abaixo de montagem e deployment do Arduino.
 
 ![](imgs/A_fiap-iot-test-board-overview.JPG)
 

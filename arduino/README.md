@@ -46,8 +46,8 @@ $ sudo dmesg -wH
 
 ---
 
-# enables arduino process to upload content to  the device, with no need to start arduino
-#   process with root privileges
+# enables IDE Arduino process to upload content to  the device, with no need to start
+#   IDE Arduino process with root privileges
 $ sudo chmod a+rw /dev/ttyACM0
 
 ---
