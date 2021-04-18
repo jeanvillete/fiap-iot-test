@@ -39,7 +39,7 @@ com a internet, mostra também uma **inteligência no pareamento** entre o físi
 
 Imagem panorâmica do circuito;
 
-##### Nota: maiores detalhes do circuito está na seção abaixo de montagem e deployment do Arduino.
+##### Nota: maiores detalhes do circuito está na [seção abaixo de montagem e deployment do Arduino.](https://github.com/jeanvillete/fiap-iot-test/tree/master/arduino)
 
 ![](imgs/A_fiap-iot-test-board-overview.JPG)
 
